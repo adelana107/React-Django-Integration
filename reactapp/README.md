@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+📘 Fullstack Todo App — Django + React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application built with Django (backend API) and React (frontend UI).
+This project demonstrates how to integrate a Django backend with a modern React frontend in one unified project structure.
 
-## Available Scripts
+🚀 Features
+Frontend (React)
 
-In the project directory, you can run:
+Built with Create React App
 
-### `npm start`
+Component-based UI
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Fetches data from Django API
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Hot reload during development
 
-### `npm test`
+Production build served by Django
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Backend (Django)
 
-### `npm run build`
+REST-style endpoints
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+SQLite database
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Todo model + views
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Admin panel enabled
 
-### `npm run eject`
+Serves React build files in production
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+📁 Project Structure
+project-root/
+│
+├── fullstack/          # Django project settings
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   ├── asgi.py
+│
+├── todo/               # Django app (backend logic)
+│   ├── models.py
+│   ├── views.py
+│   ├── admin.py
+│   ├── migrations/
+│
+├── reactapp/           # React frontend
+│   ├── src/
+│   ├── public/
+│   ├── build/          # Generated after 'npm run build'
+│   ├── package.json
+│
+├── db.sqlite3          # Database
+└── manage.py
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🛠️ Installation & Setup
+🧩 1. Clone the repository
+git clone https://github.com/your-username/fullstack-todo.git
+cd fullstack-todo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+📌 2. Backend Setup (Django)
+Create virtual environment:
+python -m venv venv
+source venv/bin/activate     # Mac/Linux
+venv\Scripts\activate        # Windows
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Install dependencies:
+pip install -r requirements.txt
 
-## Learn More
+Run migrations:
+python manage.py migrate
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Start Django server:
+python manage.py runserver
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Django runs on:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+http://127.0.0.1:8000/
 
-### Analyzing the Bundle Size
+🌐 3. Frontend Setup (React)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Navigate into the React folder:
 
-### Making a Progressive Web App
+cd reactapp
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+Install frontend packages:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+npm install
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Run React in development mode:
 
-### `npm run build` fails to minify
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+React runs on:
+
+http://localhost:3000/
+
+📦 Building the React App for Production
+
+To serve the React app through Django, build it:
+
+cd reactapp
+npm run build
+
+
+This generates:
+
+reactapp/build/
+
+
+Then ensure your Django settings.py includes:
+
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'reactapp' / 'build']
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'reactapp' / 'build' / 'static'
+]
+
+
+And your urls.py serves the React index:
+
+from django.urls import path, re_path
+from django.views.generic import TemplateView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+]
+
+
+Now Django can serve your entire frontend.
+
+🧪 Running Both Servers Together
+Option 1 — Run React and Django separately (development)
+
+React: npm start → localhost:3000
+
+Django: python manage.py runserver → localhost:8000
+
+Option 2 — Use Django to serve React build (production)
+
+Build React: npm run build
+
+Start Django: python manage.py runserver
+
+Now everything works on:
+
+http://127.0.0.1:8000/
+
+🧰 Technologies Used
+Frontend
+
+React
+
+JavaScript
+
+JSX
+
+CSS
+
+Backend
+
+Django
+
+Python
+
+SQLite
+
+🤝 Contributing
+
+Pull requests welcome!
+If you’d like to improve or extend the app, feel free to fork the repo and submit a PR.
+
+📄 License
+
+This project is open-source and available under the MIT License.
