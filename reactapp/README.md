@@ -31,25 +31,25 @@ Serves React build files in production
 📁 Project Structure
 project-root/
 │
-├── fullstack/          # Django project settings
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   ├── asgi.py
+├── fullstack/ # Django project settings
+│ ├── settings.py
+│ ├── urls.py
+│ ├── wsgi.py
+│ ├── asgi.py
 │
-├── todo/               # Django app (backend logic)
-│   ├── models.py
-│   ├── views.py
-│   ├── admin.py
-│   ├── migrations/
+├── todo/ # Django app (backend logic)
+│ ├── models.py
+│ ├── views.py
+│ ├── admin.py
+│ ├── migrations/
 │
-├── reactapp/           # React frontend
-│   ├── src/
-│   ├── public/
-│   ├── build/          # Generated after 'npm run build'
-│   ├── package.json
+├── reactapp/ # React frontend
+│ ├── src/
+│ ├── public/
+│ ├── build/ # Generated after 'npm run build'
+│ ├── package.json
 │
-├── db.sqlite3          # Database
+├── db.sqlite3 # Database
 └── manage.py
 
 🛠️ Installation & Setup
@@ -60,8 +60,8 @@ cd fullstack-todo
 📌 2. Backend Setup (Django)
 Create virtual environment:
 python -m venv venv
-source venv/bin/activate     # Mac/Linux
-venv\Scripts\activate        # Windows
+source venv/bin/activate # Mac/Linux
+venv\Scripts\activate # Windows
 
 Install dependencies:
 pip install -r requirements.txt
@@ -71,7 +71,6 @@ python manage.py migrate
 
 Start Django server:
 python manage.py runserver
-
 
 Django runs on:
 
@@ -83,16 +82,13 @@ Navigate into the React folder:
 
 cd reactapp
 
-
 Install frontend packages:
 
 npm install
 
-
 Run React in development mode:
 
 npm start
-
 
 React runs on:
 
@@ -105,20 +101,17 @@ To serve the React app through Django, build it:
 cd reactapp
 npm run build
 
-
 This generates:
 
 reactapp/build/
-
 
 Then ensure your Django settings.py includes:
 
 TEMPLATES[0]['DIRS'] = [BASE_DIR / 'reactapp' / 'build']
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'reactapp' / 'build' / 'static'
+BASE_DIR / 'reactapp' / 'build' / 'static'
 ]
-
 
 And your urls.py serves the React index:
 
@@ -126,10 +119,9 @@ from django.urls import path, re_path
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+path('admin/', admin.site.urls),
+re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
-
 
 Now Django can serve your entire frontend.
 
@@ -176,4 +168,4 @@ If you’d like to improve or extend the app, feel free to fork the repo and sub
 
 📄 License
 
-This project is open-source and available under the MIT License.
+This project is open-source and available under the MIT License...
